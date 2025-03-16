@@ -11,10 +11,8 @@ results <- ccNMFmodel(X1 = element$X1, X2 = element$X2, K=20, s = 0.25, alpha = 
 ### Dimensionality reduction and clustering
 ans=clustering(as.matrix(results$H),method="umap")
 ### Adding Comments
-colnames(results$H)<-element$Barcode$V1
-
+colnames(results$H)<-element$Barcode$V1 /n
 rownames(results$H)<- paste0("factor", 1:20)
-
 rownames(results$W1)<-results$Gene_name
 colnames(results$W1)<- paste0("factor", 1:20)
 rownames(results$W2)<-results$peak_name
