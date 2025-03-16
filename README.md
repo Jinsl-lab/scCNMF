@@ -6,21 +6,21 @@ Use "ccNMF" to integrate the paired scRNA-seq data and scATAC-seq data and clust
 ### Read data
 element=readRawData("filtered_feature_bc_matrix/")
 ### Run ccNMF
-results <- ccNMFmodel(X1 = element$X1, X2 = element$X2, K=20, s = 0.25, alpha = 1, beta = 1, gamma = 10000, maxIter = 500,
+results <- ccNMFmodel(X1 = element$X1, X2 = element$X2, K=20, s = 0.25, alpha = 1, beta = 1, gamma = 10000, maxIter = 500,  
                  GeneName = element$GeneName, PeakName = element$PeakName, GeneLoc = element$GeneLoc, PeakLoc = element$PeakLoc)
 ### Dimensionality reduction and clustering
 ans=clustering(as.matrix(results$H),method="umap")
 ### Adding Comments
-colnames(results$H)<-element$Barcode$V1 /n
-rownames(results$H)<- paste0("factor", 1:20)
-rownames(results$W1)<-results$Gene_name
-colnames(results$W1)<- paste0("factor", 1:20)
-rownames(results$W2)<-results$peak_name
-colnames(results$W2) <- paste0("factor", 1:20)
-rownames(element$X1)<-element$GeneName
-colnames(element$X1)<-element$Barcode$V1
-rownames(element$X2)<-element$PeakName
-colnames(element$X2)<-element$Barcode$V1
+colnames(results$H)<-element$Barcode$V1  
+rownames(results$H)<- paste0("factor", 1:20)  
+rownames(results$W1)<-results$Gene_name  
+colnames(results$W1)<- paste0("factor", 1:20)  
+rownames(results$W2)<-results$peak_name  
+colnames(results$W2) <- paste0("factor", 1:20)  
+rownames(element$X1)<-element$GeneName  
+colnames(element$X1)<-element$Barcode$V1  
+rownames(element$X2)<-element$PeakName  
+colnames(element$X2)<-element$Barcode$V1  
 ### Plotting
 feature_score_visual(ans, feature_scores = t(results$H), 
                           feature_using = paste0("factor",c(2,5,10,15,19,20)),  
