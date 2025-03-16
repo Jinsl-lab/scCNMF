@@ -1,0 +1,13 @@
+Package: ccNMF
+Type: Package
+Title: ccNMF
+Version: 0.1.0
+Author: Yufei Zhang, Qiongyu Sheng, Xiaoran Shi, Jing Qi, Shuilin Jin
+Maintainer: Yufei Zhang <zhangyf3379@gmail.com>
+Description: Use "ccNMF" to integrate the paired scRNA-seq data and scATAC-seq data and cluster cells. 
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: Rcpp (>= 1.0.12), Matrix, lsa, umap, Rtsne, ggplot2, dplyr, cowplot, ComplexHeatmap, circlize
+LinkingTo: Rcpp, RcppEigen
+RoxygenNote: 7.3.2
