@@ -3,6 +3,8 @@ Use "ccNMF" to integrate the paired scRNA-seq data and scATAC-seq data and clust
 
 ## example
 
+### Download
+devtools::install_github("Jinsl-lab/ccNMF")
 ### Read data
 element=readRawData("filtered_feature_bc_matrix/")
 ### Run ccNMF
