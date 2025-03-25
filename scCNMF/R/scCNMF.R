@@ -186,9 +186,8 @@ TFIDF_trans <-function(X){
 #'
 #' @param matrixmtx Data matrix
 #' @export
-jaccard_matrix<-function(matrixmtx){
-a=read.table(matrixmtx,sep = "",header = T,comment.char = '%')
-  mean_value <- mean(a[[3]])
+jaccard_matrix<-function(X1){
+  mean_value <- mean(X1@x)
   binary_matrix <- X1
   binary_matrix@x[binary_matrix@x < mean_value] <- 0
   binary_matrix@x[binary_matrix@x > mean_value] <- 1
