@@ -422,15 +422,24 @@ clustering<-function(H,cell_num_smooth=sqrt(dim(H)[2]),celltype,method="umap"){
   if(method =="umap"){
     print("Run UMAP")
     umap_result <- umap(t(HH))
-    ans <- data.frame(x = umap_result$layout[, 1], y = umap_result$layout[, 2], col = S_tmp[1,])
+    ans <- data.frame(x = umap_result$layout[, 1], y = umap_result$layout[, 2], col = S_tmp[1,],celltype = celltype)
+    xlabel="UMAP_1"
+    ylabel="UMAP_2"
   }
   else{
     print("Run t-SNE")
-    T=Rtsne::Rtsne(t(HH));
-    ans <- data.frame(x=T$Y[,1],y=T$Y[,2],col=S_tmp[1,]);
+    tsne_result=Rtsne::Rtsne(t(HH));
+    ans <- data.frame(x=tsne_result$Y[,1],y=tsne_result$Y[,2],col=S_tmp[1,],celltype = celltype);
+    xlabel="t-SNE_1"
+    ylabel="t-SNE_2"
   }
-  # s<-celltype
-  s<-as.character(ans$col)
+  if(is.null(celltype))
+  {
+    s<-as.character(ans$col)
+  }
+  else{
+    s<-celltype
+  }
   colourCount = length(unique(s))
   getPalette = colorRampPalette(c("#f8766d","#e68613","#cd9600","#aba300","#7cae00","#0cb702","#00be67","#00c19a",
                                   "#00bfc4","#00b8e7","#00a9ff","#8494ff","#c77cff","#ed68ed","#ff61cc","#ff68a1"))
@@ -438,7 +447,7 @@ clustering<-function(H,cell_num_smooth=sqrt(dim(H)[2]),celltype,method="umap"){
   geom_point(shape=16,size=0.2,aes(col = s))+
   #scale_colour_viridis(option="turbo",discrete=TRUE)+
   scale_colour_manual(values = getPalette(colourCount))+
-  labs(x = "UMAP_1", y = "UMAP_2") +  # ggtitle("Liger_human_CellType")+
+  labs(x = xlabel, y = ylabel) +  # ggtitle("Liger_human_CellType")+
   guides(colour = guide_legend(override.aes = list(size=5)))+
   theme_test()+
   theme(plot.title = element_text(hjust = 0.5, size = 16),legend.title = element_blank())+
@@ -448,7 +457,6 @@ clustering<-function(H,cell_num_smooth=sqrt(dim(H)[2]),celltype,method="umap"){
               ans=ans,
               plot=plot))
 }
-
 
 #' Drawing format
 #'
