@@ -1,5 +1,5 @@
-# ccNMF
-Use "ccNMF" to integrate the paired scRNA-seq data and scATAC-seq data and cluster cells.
+# scCNMF
+Use "scCNMF" to integrate the paired scRNA-seq data and scATAC-seq data and cluster cells.
 
 ## example
 
@@ -8,7 +8,7 @@ devtools::install_github("Jinsl-lab/ccNMF/ccNMF")
 ### Read data
 element=readRawData("filtered_feature_bc_matrix/")
 ### Run ccNMF
-results <- ccNMFmodel(X1 = element$X1, X2 = element$X2, K=20, s = 0.25, alpha = 1, beta = 1, gamma = 10000, maxIter = 500,
+results <- scCNMFmodel(X1 = element$X1, X2 = element$X2, K=20, s = 0.25, alpha = 1, beta = 1, gamma = 10000, maxIter = 500,
                  GeneName = element$GeneName, PeakName = element$PeakName, GeneLoc = element$GeneLoc, PeakLoc = element$PeakLoc)
 ### Dimensionality reduction and clustering
 ans=clustering(as.matrix(results$H),method="umap")
