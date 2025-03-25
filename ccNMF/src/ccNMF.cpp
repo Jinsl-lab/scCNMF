@@ -171,7 +171,7 @@ END_RCPP
 }
 // eps
 double eps(double a);
-RcppExport SEXP _RegNMF_eps(SEXP aSEXP) {
+RcppExport SEXP _ccNMF_eps(SEXP aSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -305,38 +305,38 @@ return Rcpp::List::create(Named("W1") = wrap(W1),
 }
 
 // [[Rcpp::export]]
-NumericMatrix Fold_RE_TG_MultiAdjustCore(NumericMatrix E2,
-                                         NumericMatrix O2,
-                                         NumericMatrix Symbol_location,
-                                         NumericMatrix Peak_location){
+NumericMatrix Fold_RE_TG_MultiAdjustCore(NumericMatrix X1,
+                                         NumericMatrix X2,
+                                         NumericMatrix GeneLoc,
+                                         NumericMatrix PeakLoc){
   LogicalVector location1,location2,preid;
-  NumericMatrix E2sqrt (E2.rows(),E2.cols());
-  NumericMatrix P_1 (E2.rows(),O2.rows());
+  NumericMatrix E2sqrt (X1.rows(),X1.cols());
+  NumericMatrix P_1 (X1.rows(),X2.rows());
   IntegerVector id,rowid,colid;
-  for(int i=0;i<(E2.length());i++){
-    if(E2[i]!=0){E2sqrt[i]=pow(E2[i],2);}
-    }
+  for(int i=0;i<(X1.length());i++){
+    if(X1[i]!=0){E2sqrt[i]=pow(X1[i],2);}
+  }
   Function w("which");
-  for(int i=0;i<O2.rows();i++){
+  for(int i=0;i<X2.rows();i++){
     Rcpp::checkUserInterrupt();
-    location1=Symbol_location(_,0)==Peak_location(i,0);
-    location2=abs(Symbol_location(_,1)-Peak_location(i,1))<1000000;
+    location1=GeneLoc(_,0)==PeakLoc(i,0);
+    location2=abs(GeneLoc(_,1)-PeakLoc(i,1))<1000000;
     preid=location1&location2;
     id=w(preid==TRUE);
     id=id-1;
     int tsum=0;
-    for(int j=0;j<O2.cols();j++){
-      if(O2(i,j)>0) tsum++;
+    for(int j=0;j<X2.cols();j++){
+      if(X2(i,j)>0) tsum++;
     }
     for(int j=0;j<id.length();j++){
       int cnt0=0;
       int cnt1=0;
-      for(int k=0;k<O2.cols();k++){
-        if(E2(id(j),k)!=0){
-          if(O2(i,k)>0){
+      for(int k=0;k<X2.cols();k++){
+        if(X1(id(j),k)!=0){
+          if(X2(i,k)>0){
             cnt1++;
           }
-          else if (O2(i,k)==0) {
+          else if (X2(i,k)==0) {
             cnt0++;
           }
         }
@@ -345,21 +345,21 @@ NumericMatrix Fold_RE_TG_MultiAdjustCore(NumericMatrix E2,
       NumericVector set0sqrt (cnt0);
       NumericVector set1 (cnt1);
       NumericVector set1sqrt (cnt1);
-      for(int k=0;k<O2.cols();k++){
-      if(E2(id(j),k)!=0){
-        if(O2(i,k)>0){
-          cnt1--;
-          set1(cnt1)=E2(id(j),k);
-          set1sqrt(cnt1)=E2sqrt(id(j),k);
+      for(int k=0;k<X2.cols();k++){
+        if(X1(id(j),k)!=0){
+          if(X2(i,k)>0){
+            cnt1--;
+            set1(cnt1)=X1(id(j),k);
+            set1sqrt(cnt1)=E2sqrt(id(j),k);
           }
-        else if (O2(i,k)==0) {
-          cnt0--;
-          set0(cnt0)=E2(id(j),k);
-          set0sqrt(cnt0)=E2sqrt(id(j),k);
+          else if (X2(i,k)==0) {
+            cnt0--;
+            set0(cnt0)=X1(id(j),k);
+            set0sqrt(cnt0)=E2sqrt(id(j),k);
           }
+        }
       }
-      }
-      P_1(id(j),i)=Cttest(set1,set0,set1sqrt,set0sqrt,tsum,O2.cols()-tsum);
+      P_1(id(j),i)=Cttest(set1,set0,set1sqrt,set0sqrt,tsum,X2.cols()-tsum);
     }
   }
   return wrap(P_1);
