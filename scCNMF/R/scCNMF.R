@@ -811,7 +811,7 @@ feature_heatmap <- function(element,clusting_results, assay, feature_using, clas
   if (class == "cluster") {
     groups=factor(clusting_results$ans$col)
   } else {
-    groups=clusting_results$celltype
+    groups=clusting_results$ans$celltype
   }
   feature_using <- feature_using[feature_using %in% rownames(data)]
   data_using <- data[feature_using,]
