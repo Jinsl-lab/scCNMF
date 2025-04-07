@@ -182,21 +182,6 @@ TFIDF_trans <-function(X){
   return(as(X1,"sparseMatrix"))
 }
 
-#' Generate an initialized jaccard similarity matrix
-#'
-#' @param matrixmtx Data matrix
-#' @export
-jaccard_matrix<-function(X1){
-  mean_value <- mean(X1@x)
-  binary_matrix <- X1
-  binary_matrix@x[binary_matrix@x < mean_value] <- 0
-  binary_matrix@x[binary_matrix@x > mean_value] <- 1
-  binary_matrix_dense <- as.matrix(binary_matrix)
-  jaccard_matrix <- as.matrix(proxy::dist(t(binary_matrix_dense), method = "Jaccard"))
-  jaccard_similarity <- 1 - jaccard_matrix
-  return(jaccard_similarity)
-}
-
 #' Integration operations are performed on the two matrices X1,X2 obtained after initialization, and the rcpp program is called in the middle.
 #' Function 'scCNMF_cpp_function' calls c++ program 'scCNMF.cpp'
 #'
