@@ -226,8 +226,8 @@ Rcpp::List scCNMF_cpp_function(Eigen::Map<Eigen::MatrixXd> X1,
     if(stop_rule==2){
       dn=(X1-(W1*H)).squaredNorm()+(alpha*(X2*(θ*O0)-(W2*H)).squaredNorm())+(beta*(Reg-(W3*H)).squaredNorm())-(gamma*(θ-(H.transpose()*H)).squaredNorm());
      if(iter>500){
-       if(iter>1 and (dn_old-dn)/dn_old<=tolfun){
-         Rprintf("dnorm_old-dnorm %f is small", dn_old-dn);
+       if(iter>1 and abs(dn_old-dn)/dn_old<=tolfun){
+         Rprintf("dnorm_old-dnorm %f is small", abs(dn_old-dn)/dn_old);
          Rprintf("iter：", iter);
          break;
         }
