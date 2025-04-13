@@ -164,7 +164,7 @@ Rcpp::List scCNMF_cpp_function(Eigen::Map<Eigen::MatrixXd> X1,
   Eigen::MatrixXd numerR ,W1, W2, W3, H,θ, Tmp1,Tmp2;
   Eigen::MatrixXd Ht,θO,temp1,temp2,temp3,temp4,OX2tW2H,ORegtW3H,XtX2θOO,RegtRegθOO;
   Eigen::MatrixXd W1t,W2t,W3t,θ0t,X2t,Regt;
-  dn_old=(X1-(W10*H0)).squaredNorm()+(alpha*(X2*(θ0*O0)-(W20*H0)).squaredNorm())+(beta*(Reg-(W30*H0)).squaredNorm())-(gamma*(θ0-(H0.transpose()*H0)).squaredNorm());
+  dn_old=(X1-(W10*H0)).squaredNorm()+(alpha*(X2*(θ0*O0)-(W20*H0)).squaredNorm())+(beta*(Reg-(W30*H0)).squaredNorm())+(gamma*(θ0-(H0.transpose()*H0)).squaredNorm());
   for(int iter=0;iter<maxIter;iter++){
     Rcpp::checkUserInterrupt();
     Rprintf("iter=%d\n",iter);
@@ -224,7 +224,7 @@ Rcpp::List scCNMF_cpp_function(Eigen::Map<Eigen::MatrixXd> X1,
     θ=ifzeroMCPP((θ0.array()*(temp3.array()/(temp4+epsMCpp(temp3)).array())).matrix());
     /*Determine if the iteration is stopped*/
     if(stop_rule==2){
-      dn=(X1-(W1*H)).squaredNorm()+(alpha*(X2*(θ*O0)-(W2*H)).squaredNorm())+(beta*(Reg-(W3*H)).squaredNorm())-(gamma*(θ-(H.transpose()*H)).squaredNorm());
+      dn=(X1-(W1*H)).squaredNorm()+(alpha*(X2*(θ*O0)-(W2*H)).squaredNorm())+(beta*(Reg-(W3*H)).squaredNorm())+(gamma*(θ-(H.transpose()*H)).squaredNorm());
      if(iter>500){
        if(iter>1 and abs(dn_old-dn)/dn_old<=tolfun){
          Rprintf("dnorm_old-dnorm %f is small", abs(dn_old-dn)/dn_old);
