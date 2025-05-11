@@ -19,12 +19,13 @@ element=readRDS("pbmcdemo.rds")
 ```
 
 ### Run scCNMF
-The preprocessed data is input into the scCNMF framework for integration and the integration results are obtained
+The preprocessed data is input into the scCNMF framework for integration and the integration results are obtained.
 ```
 results <- scCNMFmodel(X1 = element$X1, X2 = element$X2, K=20, s = 0.25, alpha = 1, beta = 1, gamma = 10000, maxIter = 500,
                  GeneName = element$GeneName, PeakName = element$PeakName, GeneLoc = element$GeneLoc, PeakLoc = element$PeakLoc)
 ```
 ### Dimensionality reduction and clustering
+The integration results were subjected to UMAP and t-SNE downscaling, respectively, and when the real cell labels were missing, the cell clusters obtained by scCNMF could be used as substitutes.
 ```
 ans_umap=ClusteringVisual(as.matrix(results$H),method="umap",celltype=celltype)   
 ans_tsne=ClusteringVisual(as.matrix(results$H),method="tsne",celltype=celltype)
