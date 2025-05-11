@@ -43,7 +43,7 @@ colnames(results$W2) <- paste0("factor", 1:20)
 ```
 ### Plotting
 ```
-FactorVisual(ans, feature_scores = t(results$H), feature_using = paste0("factor",c(2,5,10,15,19,20)),  
+FactorVisual(ans_umap, feature_scores = t(results$H), feature_using = paste0("factor",c(2,5,10,15,19,20)),  
                      method = "umap", nCol = 3, cell_size = 0.1, show_legend = T, show_legend_combined = F)  
 feature_genes = c('CD3D', 'CD3E', 'CD3G', 'CD4', 'CD8A', 'IL7R', 'CD19', 'CD79A', 
                   'CD79B', 'MS4A1', 'BANK1', 'CR2', 'CD14', 'CD68', 'FCGR3A', 'ITGAM', 
@@ -55,8 +55,8 @@ feature_genes = c('CD3D', 'CD3E', 'CD3G', 'CD4', 'CD8A', 'IL7R', 'CD19', 'CD79A'
 FeatureRank(results,assay = 'RNA', factor_show = c(2,5,10,15,19,20) , ncol = 2, feature_show = feature_genes, top = 0.25, ylabel = "Gene score")  
 options(future.globals.maxSize = 10*1024 * 1024^2)  
 future::plan("multisession", workers = 4)  
-markers.RNA.cluster <- ClusterMarkers(element = element,clusting_results = ans, assay = 'RNA')  
+markers.RNA.cluster <- ClusterMarkers(element = element,clusting_results = ans_umap, assay = 'RNA')  
 n.top = 10  
 markers.RNA.clusterTop <- markers.RNA.cluster %>% group_by(clusters) %>% top_n(n.top, logFC) %>% slice(1:n.top)  
-FeatureHeatmap(element = element,clusting_results = ans, assay = "RNA", feature_using = markers.RNA.clusterTop$features, class = "cluster")
+FeatureHeatmap(element = element,clusting_results = ans_umap, assay = "RNA", feature_using = markers.RNA.clusterTop$features, class = "cluster")
 ```
