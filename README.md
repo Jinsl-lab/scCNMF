@@ -34,7 +34,7 @@ ans_tsne=ClusteringVisual(as.matrix(results$H),method="tsne",celltype=celltype)
 ```
 ### Adding Comments
 ```
-colnames(results$H)<-element$Barcode$V1  
+colnames(results$H)<-element$Barcode  
 rownames(results$H)<- paste0("factor", 1:20)  
 rownames(results$W1)<-results$Gene_name  
 colnames(results$W1)<- paste0("factor", 1:20)  
