@@ -4,8 +4,11 @@ Use "scCNMF" to integrate the paired scRNA-seq data and scATAC-seq data and clus
 ## example
 
 ### Download
+''' python
 devtools::install_github("Jinsl-lab/scCNMF/scCNMF")
+'''
 ### Read data
+#### 
 element=readRawData("filtered_feature_bc_matrix/")
 ### Run scCNMF
 results <- scCNMFmodel(X1 = element$X1, X2 = element$X2, K=20, s = 0.25, alpha = 1, beta = 1, gamma = 10000, maxIter = 500,
