@@ -1,8 +1,0 @@
-Data is available at 10x Genomics website and NCBI GEO. 
-
-Links: https://www.10xgenomics.com/datasets/pbmc-from-a-healthy-donor-granulocytes-removed-through-cell-sorting-10-k-1-standard-2-0-0, https://www.10xgenomics.com/datasets/frozen-human-healthy-brain-tissue-3-k-1-standard-1-0-0.
-
-
-Accession numbers: GSE117089, GSM6284346, GSM6284350.
-
-Considering that 10x databases usually require a login to access, we uploaded the raw 10x data to github as well.
