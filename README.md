@@ -10,6 +10,9 @@ library(scCNMF)
 ```
 ### Read data
 The scCNMF inputs have the same format as the 10x multiome data and can be downloaded from [10x Genomics](https://www.10xgenomics.com/datasets?configure%5BhitsPerPage%5D=50&configure%5BmaxValuesPerFacet%5D=1000&refinementList%5Bplatform%5D%5B0%5D=Chromium%20Single%20Cell&refinementList%5Bproduct.name%5D%5B0%5D=Epi%20Multiome%20ATAC%20%2B%20Gene%20Expression). Downloads the “Filtered feature barcode matrix MEX (DIR)” file for reading. For other sequencing formats, such as from the GEO database, the data should be converted to a 10x-like format as input. Here, we provide preprocessed PBMC data as a demonstration example, which can be downloaded from [Jinsl-lab/scCNMF/data](https://github.com/Jinsl-lab/scCNMF/tree/main/data).
+You can also download the dataset used in this example from the following link:
+[My Google Drive dataset](https://drive.google.com/drive/folders/1_JcTsqmQW0GFVchBUbpK6WYU0jW0ZE_i?usp=sharing)
+
 #### Read raw data and preprocess it
 ```
 element=readRawData("filtered_feature_bc_matrix/")
